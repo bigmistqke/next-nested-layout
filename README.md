@@ -77,3 +77,25 @@ const [Post, PostLayout] = createLayout(
 export {PostLayout}
 export default Post
 ```
+
+- reuse layouts with `createLayout(Component, ExternalLayout)`
+
+```tsx
+// [page]/[post]/detail.tsx
+import {createLayout} from 'next-nested-layout'
+import {PostLayout} from './'
+
+
+const [Detail] = createLayout(
+  () => <> some post content </>,
+  ({children}) => {
+     return <>
+        <h2>post</h2>
+        {children}
+     </>
+  },
+  PostLayout
+)
+export default Detail
+```
+
