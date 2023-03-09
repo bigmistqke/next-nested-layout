@@ -53,4 +53,4 @@ function createLayout<T>(
   return [Component, NestedLayout] as const;
 }
 
-export { Root, createLayout as createPersistentLayout };
+export { Root, createLayout };

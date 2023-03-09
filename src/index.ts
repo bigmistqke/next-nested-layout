@@ -1,1 +1,1 @@
-export {Root, createPersistentLayout} from "./components/next-nested-layout";
+export {Root, createLayout} from "./components/next-nested-layout";
