@@ -23,13 +23,13 @@
     "url": "git+https://github.com/manisuec/react-ts-lib-starter.git"
   },
   "keywords": [
+    "Next",
     "React",
     "Component",
     "Library",
-    "Rollup",
-    "Typescript",
-    "Sass",
-    "Storybook"
+    "Layout",
+    "Nested",
+    "Persistent"
   ],
   "author": "bigmistqke",
   "license": "MIT",
