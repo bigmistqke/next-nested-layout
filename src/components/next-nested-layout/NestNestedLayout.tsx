@@ -1,64 +1,56 @@
-
-import type { NextComponentType, NextPageContext } from "next";
 import React from "react";
 
-const LayoutNesterSymbol = Symbol("layout-nester");
+const LayoutNesterSymbol = Symbol("next-nested-layout");
 
-type LayoutGetterProperties = { [LayoutNesterSymbol]: true };
-type LayoutGetter = (
-  component: JSX.Element
-) => JSX.Element & LayoutGetterProperties;
+type LayoutProperties = { [LayoutNesterSymbol]: true };
+type Layout = (props: {
+  children: JSX.Element;
+}) => JSX.Element | (JSX.Element & LayoutProperties);
 
-type ComponentWithLayout<T, U> = NextComponentType<NextPageContext, T, U> & {
-  getLayout: LayoutGetter;
+type ComponentWithLayout<T> = React.FC<T> & {
+  getLayout: Layout;
 };
-
-type NextComponent<T = { children: JSX.Element }> = NextComponentType<
-  NextPageContext,
-  unknown,
-  T
->;
 
 function Root<T extends JSX.IntrinsicAttributes>({
   Component,
   pageProps,
 }: {
-  Component: NextComponent<T> | ComponentWithLayout<T, any>;
+  Component: React.FC<T> | ComponentWithLayout<T>;
   pageProps: T;
 }) {
+  const CastComponent = Component as React.FC<T>;
+
   if ("getLayout" in Component) {
-    return Component.getLayout(<Component {...pageProps} />);
+    return Component.getLayout({ children: <CastComponent {...pageProps} /> });
   } else {
-    const CastComponent = Component as NextComponent<T>;
     return <CastComponent {...pageProps} />;
   }
 }
 
-function createPersistentLayout<T, U>(
-  Component: NextComponentType<NextPageContext, T, U>,
-  Layout: NextComponent | LayoutGetter,
-  Parent?: LayoutGetter
+function createLayout<T>(
+  Component: React.FC<T>,
+  Layout: Layout,
+  Parent?: Layout
 ) {
-  const LayoutGetter = (
+  const _Layout = (
     LayoutNesterSymbol in Layout
       ? Layout
-      : (page: JSX.Element) => {
-          const CastLayout = Layout as NextComponent;
-          return <CastLayout>{page}</CastLayout>;
+      : (props: { children: JSX.Element }) => {
+          const CastLayout = Layout as React.FC<{ children: JSX.Element }>;
+          return <CastLayout>{props.children}</CastLayout>;
         }
-  ) as LayoutGetter;
+  ) as Layout;
 
-  const NestedLayoutGetter = Parent
-    ? (page: JSX.Element) => Parent(LayoutGetter(page))
-    : LayoutGetter;
+  const NestedLayout = Parent
+    ? ({ children }: { children: JSX.Element }) =>
+        Parent({ children: Layout({ children }) })
+    : _Layout;
 
-  (NestedLayoutGetter as unknown as LayoutGetterProperties)[
-    LayoutNesterSymbol
-  ] = true;
+  (NestedLayout as unknown as LayoutProperties)[LayoutNesterSymbol] = true;
 
-  (Component as ComponentWithLayout<T, U>).getLayout = NestedLayoutGetter;
+  (Component as ComponentWithLayout<T>).getLayout = NestedLayout;
 
-  return [Component, NestedLayoutGetter] as const;
+  return [Component, NestedLayout] as const;
 }
 
-export { Root, createPersistentLayout };
+export { Root, createLayout as createPersistentLayout };
