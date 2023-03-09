@@ -8,7 +8,7 @@ Next-js' `app`-directory has better support for persisting (nested) layouts.<br/
 But a lot of the next-ecosystem did not make the transition yet.
 
 `next-nested-layout` offers a solution to create persistent, nested layouts outside the `app`-directory.<br/>
-It is a wrapper around the pattern described by [adman wathan's article](https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/).
+It is inspired by the pattern described by [adman wathan's article](https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/).
 
 ## Quick start
 
