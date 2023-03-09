@@ -87,13 +87,7 @@ import {PostLayout} from './'
 
 
 const [Detail] = createLayout(
-  () => <> some post content </>,
-  ({children}) => {
-     return <>
-        <h2>post</h2>
-        {children}
-     </>
-  },
+  () => <> some detail content </>,
   PostLayout
 )
 export default Detail
