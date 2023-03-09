@@ -2,9 +2,8 @@
 
 Utility to create persistent and nested lay-outs in next-js (without the app-directory).
 
-Default in next-js, Layouts would re-mount on each navigation. <br/>
-Next's `app`-directory has better support for persisting (nested) layouts.<br/>
-But a lot of the next/react-ecosystem still revolves around the `pages`-directory.
+Layouts re-mounting on each navigation is a default behavior in next-js. This makes nested routing a complicated task to implement.<br/>
+Next's `app`-directory has better support for persisting (nested) layouts, but a lot of the next-ecosystem did not make the transition yet.
 
 `next-nested-layout` offers a solution to create persistent, nested layouts in the `pages`-directory.<br/>
 It is a wrapper around the pattern described by [adman wathan's article](https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/).
