@@ -31,12 +31,12 @@
     "Sass",
     "Storybook"
   ],
-  "author": "Manish Prasad",
+  "author": "bigmistqke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/manisuec/react-ts-lib-starter/issues"
+    "url": "https://github.com/bigmistqke/next-nested-layout/issues"
   },
-  "homepage": "https://manisuec.github.io/react-ts-lib-starter/",
+  "homepage": "https://github.com/bigmistqke/next-nested-layout",
   "peerDependencies": {
     "next": "^13.2.3",
     "react": "^18.2.0",
