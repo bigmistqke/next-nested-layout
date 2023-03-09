@@ -63,7 +63,6 @@ export default Page
 import {createLayout} from 'next-nested-layout'
 import {PageLayout} from '../'
 
-
 const [Post, PostLayout] = createLayout(
   () => <> some post content </>,
   ({children}) => {
@@ -84,7 +83,6 @@ export default Post
 // [page]/[post]/detail.tsx
 import {createLayout} from 'next-nested-layout'
 import {PostLayout} from './'
-
 
 const [Detail] = createLayout(
   () => <> some detail content </>,
